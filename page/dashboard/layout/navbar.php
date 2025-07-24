@@ -1,10 +1,9 @@
   <?php
     $username = $_SESSION['login']['username'];
-    $page = $_GET['page'] ?? 'dashboard';
     ?>
   <nav class="navbar">
       <div class="logo">
-          <img src="https://laravel.com/img/logomark.min.svg" alt="Laravel Logo" />
+          <img src="../../../assets/local/logo2.png" alt="Laravel Logo" />
       </div>
       <ul class="nav-links">
           <li class="<?= $page == 'dashboard' ? 'active' : '' ?>"><a href="index.php?page=dashboard">Dashboard</a></li>

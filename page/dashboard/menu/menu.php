@@ -147,4 +147,10 @@ class menu
             return [];
         }
     }
+
+    public function getTotal()
+    {
+        $query = $this->connect->query("SELECT COUNT(*) FROM menu");
+        return $query->fetchColumn();
+    }
 }

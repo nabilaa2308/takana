@@ -20,7 +20,7 @@ class transaksi
     public function getDetailById($id)
     {
         $query = $this->connect->prepare("
-            SELECT td.*, m.nama AS nama_menu
+            SELECT td.*, m.nama, m.diskon 
             FROM transaksi_detail td
             JOIN menu m ON td.id_menu = m.id
             WHERE td.id_transaksi = ?
@@ -48,13 +48,14 @@ class transaksi
         $total_bayar = 0;
 
         try {
-            $query = $this->connect->prepare("INSERT INTO transaksi (id_user, kode_inv, tanggal, nama_pembeli, nomor_hp, id_metode_pembayaran, total_bayar, status) VALUES (:id_user, :kode_inv, :tanggal, :nama_pembeli, :nomor_hp, :id_metode_pembayaran, :total_bayar, :status)");
+            $query = $this->connect->prepare("INSERT INTO transaksi (id_user, kode_inv, tanggal, nama_pembeli, nomor_hp, id_metode_pembayaran, alamat, total_bayar, status) VALUES (:id_user, :kode_inv, :tanggal, :nama_pembeli, :nomor_hp, :id_metode_pembayaran, :alamat, :total_bayar, :status)");
             $query->bindValue(':id_user', $id_user, $id_user !== null ? PDO::PARAM_INT : PDO::PARAM_NULL);
             $query->bindParam(':kode_inv', $data['kode_inv']);
             $query->bindParam(':tanggal', $data['tanggal']);
             $query->bindParam(':nama_pembeli', $data['nama_pembeli']);
             $query->bindParam(':nomor_hp', $data['nomor_hp']);
             $query->bindParam(':id_metode_pembayaran', $data['id_metode_pembayaran']);
+            $query->bindParam(':alamat', $data['alamat']);
             $query->bindParam(':total_bayar', $total_bayar);
             $query->bindParam(':status', $status);
             $query->execute();
@@ -71,7 +72,7 @@ class transaksi
         $data = $_POST;
         $id_user = $_SESSION['login']['id'];
         try {
-            $query = $this->connect->prepare("UPDATE transaksi SET id_user = :id_user, kode_inv = :kode_inv, tanggal = :tanggal, nama_pembeli = :nama_pembeli, nomor_hp = :nomor_hp, id_metode_pembayaran = :id_metode_pembayaran, total_bayar = :total_bayar, status = :status WHERE id = :id");
+            $query = $this->connect->prepare("UPDATE transaksi SET id_user = :id_user, kode_inv = :kode_inv, tanggal = :tanggal, nama_pembeli = :nama_pembeli, nomor_hp = :nomor_hp, id_metode_pembayaran = :id_metode_pembayaran, alamat = :alamat, total_bayar = :total_bayar, status = :status WHERE id = :id");
             $query->bindParam(':id', $data['id']);
             $query->bindValue(':id_user', $id_user);
             $query->bindParam(':kode_inv', $data['kode_inv']);
@@ -79,6 +80,7 @@ class transaksi
             $query->bindParam(':nama_pembeli', $data['nama_pembeli']);
             $query->bindParam(':nomor_hp', $data['nomor_hp']);
             $query->bindParam(':id_metode_pembayaran', $data['id_metode_pembayaran']);
+            $query->bindParam(':alamat', $data['alamat']);
             $query->bindParam(':total_bayar', $data['total_bayar']);
             $query->bindParam(':status', $data['status']);
             $query->execute();
@@ -141,14 +143,15 @@ class transaksi
             }
 
             // Simpan ke tabel transaksi
-            $query = $this->connect->prepare("INSERT INTO transaksi (id_user, kode_inv, tanggal, nama_pembeli, nomor_hp, id_metode_pembayaran, total_bayar, status) 
-            VALUES (:id_user, :kode_inv, :tanggal, :nama_pembeli, :nomor_hp, :id_metode_pembayaran, :total_bayar, :status)");
+            $query = $this->connect->prepare("INSERT INTO transaksi (id_user, kode_inv, tanggal, nama_pembeli, nomor_hp, id_metode_pembayaran, alamat, total_bayar, status) 
+            VALUES (:id_user, :kode_inv, :tanggal, :nama_pembeli, :nomor_hp, :id_metode_pembayaran, :alamat, :total_bayar, :status)");
             $query->bindValue(':id_user', $id_user, $id_user !== null ? PDO::PARAM_INT : PDO::PARAM_NULL);
             $query->bindParam(':kode_inv', $data['kode_inv']);
             $query->bindParam(':tanggal', $data['tanggal']);
             $query->bindParam(':nama_pembeli', $data['nama_pembeli']);
             $query->bindParam(':nomor_hp', $data['nomor_hp']);
             $query->bindParam(':id_metode_pembayaran', $data['id_metode_pembayaran']);
+            $query->bindParam(':alamat', $data['alamat']);
             $query->bindParam(':total_bayar', $total_bayar);
             $query->bindParam(':status', $status);
             $query->execute();
@@ -197,5 +200,11 @@ class transaksi
             $this->connect->rollBack();
             echo "Gagal menyimpan data transaksi: " . $e->getMessage();
         }
+    }
+
+    function getTotal()
+    {
+        $query = $this->connect->query("SELECT COUNT(*) FROM transaksi");
+        return $query->fetchColumn();
     }
 }

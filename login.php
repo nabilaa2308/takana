@@ -29,7 +29,8 @@ $error = getFlash('error');
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="assets/local/icon.png" rel="icon">
   <title>Login</title>
   <link rel="stylesheet" href="assets/dashboard/css/style.css" />
 </head>
@@ -38,7 +39,7 @@ $error = getFlash('error');
 
   <div class="register-form">
     <div class="logo-center">
-      <img src="https://laravel.com/img/logomark.min.svg" alt="Laravel" />
+      <img src="assets/local/logo2.png" alt="Logo" />
     </div>
 
     <form id="formRegister" method="POST">

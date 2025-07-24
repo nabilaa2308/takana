@@ -29,13 +29,13 @@ function generateKodeInv()
 
 <head>
   <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TAKANA</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
   <!-- Favicons -->
-  <link href="assets/website/img/favicon.png" rel="icon">
+  <link href="assets/local/icon.png" rel="icon">
   <link href="assets/website/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Fonts -->
@@ -53,13 +53,6 @@ function generateKodeInv()
   <!-- Main CSS File -->
   <link href="assets/website/css/main.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: Yummy
-  * Template URL: https://bootstrapmade.com/yummy-bootstrap-restaurant-website-template/
-  * Updated: Aug 07 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body class="index-page">
@@ -69,8 +62,8 @@ function generateKodeInv()
 
       <a href="index.php" class="logo d-flex align-items-center me-auto me-xl-0">
         <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="assets/website/img/logo.png" alt=""> -->
-        <h1 class="sitename">TAKANA</h1>
+        <img src="assets/local/logo3.png" alt="Logo">
+        <!-- <h1 class="sitename">TAKANA</h1> -->
         <span></span>
       </a>
 
@@ -240,6 +233,9 @@ function generateKodeInv()
                   <input type="text" name="nomor_hp" class="form-control" placeholder="No. HP" required>
                 </div>
                 <div class="col-lg-12">
+                  <input type="text" name="alamat" class="form-control" placeholder="Alamat" required>
+                </div>
+                <div class="col-lg-12">
                   <select name="id_metode_pembayaran" class="form-control" required>
                     <option value="">-- Pilih Metode Pembayaran --</option>
                     <?php foreach ($pembayaran as $mtd): ?>
@@ -295,6 +291,7 @@ function generateKodeInv()
               <p><strong>Kode INV:</strong> <span id="konf-inv"></span></p>
               <p><strong>Nama:</strong> <span id="konf-nama"></span></p>
               <p><strong>No. HP:</strong> <span id="konf-hp"></span></p>
+              <p><strong>Alamat:</strong> <span id="konf-alamat"></span></p>
               <p><strong>Metode Pembayaran:</strong> <span id="konf-metode"></span></p>
               <hr>
               <h6>Detail Pesanan:</h6>
@@ -507,6 +504,7 @@ function generateKodeInv()
       const inv = form.kode_inv.value;
       const nama = form.nama_pembeli.value;
       const hp = form.nomor_hp.value;
+      const alamat = form.alamat.value;
       const metodeSelect = form.id_metode_pembayaran;
       const metode = metodeSelect.options[metodeSelect.selectedIndex].text;
 
@@ -529,6 +527,7 @@ function generateKodeInv()
       document.getElementById("konf-inv").textContent = inv;
       document.getElementById("konf-nama").textContent = nama;
       document.getElementById("konf-hp").textContent = hp;
+      document.getElementById("konf-alamat").textContent = alamat;
       document.getElementById("konf-metode").textContent = metode;
 
       // Tampilkan modal

@@ -1,65 +1,99 @@
 <?php
-include 'config/confiq.php';
-include 'page/dashboard/transaksi/transaksi.php';
-
 header('Content-Type: application/json');
 
-$id = $_GET['id'] ?? null;
+require_once '../../config/confiq.php';
+require_once '../../helper/FlashSession.php';
+require_once '../dashboard/transaksi/transaksi.php';
 
-if (!$id) {
-    echo json_encode(['error' => 'ID tidak ditemukan']);
+$id = $_GET['id'] ?? 0;
+$transaksiModel = new transaksi();
+$transaksiData = $transaksiModel->getById($id);
+$detailData = $transaksiModel->getDetailById($id);
+
+if (!$transaksiData || count($transaksiData) === 0) {
+    echo json_encode([
+        'error' => true,
+        'message' => 'Transaksi tidak ditemukan.'
+    ]);
     exit;
 }
 
-$transaksi = new transaksi();
-$data = $transaksi->getById($id);
-$detail = $transaksi->getDetailById($id);
+$transaksi = $transaksiData[0];
 
-if (!$data || count($data) == 0) {
-    echo json_encode(['error' => 'Data tidak ditemukan']);
-    exit;
+ob_start();
+?>
+<div style="font-family: monospace;">
+    <h3 style="text-align:center;">Ayam Geprek Takana</h3>
+    <hr>
+    <p>Invoice: <?= htmlspecialchars($transaksi['kode_inv']) ?></p>
+    <p>Tanggal: <?= date('d-m-Y', strtotime($transaksi['tanggal'])) ?></p>
+    <p>Nama: <?= htmlspecialchars($transaksi['nama_pembeli']) ?></p>
+    <p>Metode Pembayaran: <?= htmlspecialchars($transaksi['nama']) ?></p>
+    <p>Nomor WA: <?= htmlspecialchars($transaksi['nomor_hp']) ?></p>
+    <p>Alamat: <?= htmlspecialchars($transaksi['alamat']) ?></p>
+    <hr>
+    <?php
+    $total = 0;
+    foreach ($detailData as $row):
+        $harga = $row['harga'];
+        $jumlah = $row['jumlah'];
+        $diskon = (int) ($row['diskon'] ?? 0);
+        $hargaDiskon = $harga - ($harga * $diskon / 100);
+        $subtotal = $hargaDiskon * $jumlah;
+        $total += $subtotal;
+    ?>
+        <p>
+            <?= htmlspecialchars($row['nama']) ?> x<?= $jumlah ?>
+            <?php if ($diskon > 0): ?>
+                <br><small>Diskon <?= $diskon ?>% (Rp<?= number_format($hargaDiskon, 0, ',', '.') ?>/pcs)</small>
+            <?php endif; ?>
+            <span style="float:right">Rp<?= number_format($subtotal, 0, ',', '.') ?></span>
+        </p>
+    <?php endforeach; ?>
+    <hr>
+    <p><strong>Total <span style="float:right">Rp<?= number_format($total, 0, ',', '.') ?></span></strong></p>
+    <hr>
+    <p style="text-align:center;">Terima kasih </p>
+</div>
+<?php
+$isiStruk = ob_get_clean();
+
+$tanggal = date('d-m-Y', strtotime($transaksi['tanggal']));
+
+// Format pesan WA
+$pesanWa = "*AYAM GEPREK TAKANA*\n";
+$pesanWa .= "=====================\n";
+$pesanWa .= "*Invoice:* {$transaksi['kode_inv']}\n";
+$pesanWa .= "*Tanggal:* {$tanggal}\n";
+$pesanWa .= "*Pelanggan:* {$transaksi['nama_pembeli']}\n";
+$pesanWa .= "*Metode Pembayaran:* {$transaksi['nama']}\n";
+$pesanWa .= "*Nomor Hp:* {$transaksi['nomor_hp']}\n";
+$pesanWa .= "*Alamat:* {$transaksi['alamat']}\n";
+$pesanWa .= "=====================\n";
+
+$pesanWa .= "*Detail Pesanan:*\n";
+$total = 0;
+foreach ($detailData as $row) {
+    $harga = $row['harga'];
+    $jumlah = $row['jumlah'];
+    $diskon = (int) ($row['diskon'] ?? 0);
+    $hargaDiskon = $harga - ($harga * $diskon / 100);
+    $subtotal = $hargaDiskon * $jumlah;
+    $total += $subtotal;
+
+    $pesanWa .= "- {$row['nama']} x{$jumlah}";
+    if ($diskon > 0) {
+        $pesanWa .= " (Diskon {$diskon}%)";
+    }
+    $pesanWa .= " = Rp" . number_format($subtotal, 0, ',', '.') . "\n";
 }
+$pesanWa .= "=====================\n";
+$pesanWa .= "*Total:* Rp" . number_format($total, 0, ',', '.') . "\n";
+$pesanWa .= "Terima kasih";
 
-// Ambil data transaksi pertama
-$data = $data[0];
-
-// Format tanggal
-$tanggal = date('d-m-Y H:i', strtotime($data['created_at']));
-
-// Bangun HTML untuk isi struk
-$html = '
-    <h5 class="text-center mb-3">Struk Transaksi</h5>
-    <p><strong>Nama User:</strong> ' . htmlspecialchars($data['nama_user']) . '</p>
-    <p><strong>Metode Pembayaran:</strong> ' . htmlspecialchars($data['nama']) . '</p>
-    <p><strong>Tanggal:</strong> ' . $tanggal . '</p>
-
-    <table class="table table-bordered mt-3">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Nama Menu</th>
-                <th>Jumlah</th>
-                <th>Harga</th>
-                <th>Total</th>
-            </tr>
-        </thead>
-        <tbody>';
-
-$no = 1;
-foreach ($detail as $item) {
-    $html .= '<tr>
-        <td>' . $no++ . '</td>
-        <td>' . htmlspecialchars($item['nama_menu']) . '</td>
-        <td>' . $item['jumlah'] . '</td>
-        <td>Rp ' . number_format($item['harga'], 0, ',', '.') . '</td>
-        <td>Rp ' . number_format($item['total_harga'], 0, ',', '.') . '</td>
-    </tr>';
-}
-
-$html .= '</tbody></table>
-    <div class="text-end mt-3">
-        <strong>Total Harga: Rp ' . number_format($data['total_harga'], 0, ',', '.') . '</strong>
-    </div>
-';
-
-echo json_encode(['html' => $html]);
+echo json_encode([
+    'error' => false,
+    'html' => $isiStruk,
+    'pesan' => $pesanWa,
+    'nomor' => $transaksi['nomor_hp']
+]);

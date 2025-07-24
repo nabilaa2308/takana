@@ -47,6 +47,9 @@ $data_metode = $metode->getData();
                     <?php endforeach; ?>
                 </select>
 
+                <label>Alamat</label>
+                <input type="text" name="alamat" id="alamatInput" required />
+
                 <div id="fieldEditOnly" style="display: none;">
                     <input type="hidden" name="total_bayar" id="totalBayarInput" readonly style="background-color: gray;" />
 
@@ -116,7 +119,7 @@ $data_metode = $metode->getData();
             <div id="strukContent">
                 <!-- Diisi dengan JavaScript -->
             </div>
-            <button id="whatsappBtn" class="btn-wa" target="_blank">Kirim ke WhatsApp</button>
+            <a id="whatsappBtn" class="btn-wa" href="#" target="_blank" style="display: none;">Kirim ke WhatsApp</a>
         </div>
     </div>
 </main>
@@ -144,6 +147,7 @@ $data_metode = $metode->getData();
             document.getElementById("tanggalInput").value = new Date().toLocaleDateString('sv-SE'); // yyyy-mm-dd
             document.getElementById("namaInput").value = "";
             document.getElementById("nomorHpInput").value = "";
+            document.getElementById("alamatInput").value = "";
             document.getElementById("metodeInput").value = "";
 
         } else if (action === 'update') {
@@ -155,6 +159,7 @@ $data_metode = $metode->getData();
             document.getElementById("tanggalInput").value = data.tanggal || '';
             document.getElementById("namaInput").value = data.nama_pembeli || '';
             document.getElementById("nomorHpInput").value = data.nomor_hp || '';
+            document.getElementById("alamatInput").value = data.alamat || '';
             document.getElementById("metodeInput").value = data.id_metode_pembayaran || '';
             document.getElementById("totalBayarInput").value = data.total_bayar || '0';
             document.getElementById("statusInput").value = data.status || 'Proses';
@@ -210,7 +215,7 @@ $data_metode = $metode->getData();
                     '62' + response.nomor.slice(1) :
                     response.nomor;
 
-                whatsappBtn.href = `https://wa.me/${nomor}?text=${encodeURIComponent(response.pesan)}`;
+                whatsappBtn.href = `https://wa.me/${nomor}?text=${encodeURIComponent(response.pesan + "\n\nPesanan Anda sedang dalam Proses Pengantaran!")}`;
                 whatsappBtn.style.display = "inline-block";
 
                 modalStruk.style.display = "block";
@@ -223,21 +228,4 @@ $data_metode = $metode->getData();
     function closeStrukModal() {
         document.getElementById("modalStruk").style.display = "none";
     }
-
-    function cetakStruk(id) {
-    fetch('path/to/cetak_struk.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: 'id=' + encodeURIComponent(id)
-    })
-    .then(res => res.json())
-    .then(data => {
-        if (data.error) {
-            alert(data.message);
-        } else {
-            document.getElementById("output-struk").innerHTML = data.html;
-            window.open(`https://wa.me/${data.nomor}?text=${encodeURIComponent(data.pesan)}`, '_blank');
-        }
-    });
-}
 </script>
