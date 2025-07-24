@@ -1,0 +1,515 @@
+/* Umum */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: #f3f4f6;
+}
+
+/* Navbar */
+.navbar {
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.logo img {
+  height: 24px;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 24px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #374151;
+  font-weight: 500;
+}
+
+.nav-links li.active a,
+.nav-links a:hover {
+  border-bottom: 2px solid #6366f1;
+  color: #1f2937;
+}
+
+.user-menu-container {
+    position: relative;
+    display: inline-block;
+}
+
+.user-menu {
+    cursor: pointer;
+    padding: 10px 15px;
+    background-color: #f0f0f0;
+    border-radius: 6px;
+    transition: background 0.3s ease;
+}
+
+.user-menu:hover {
+    background-color: #e0e0e0;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: white;
+    min-width: 150px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border-radius: 6px;
+    z-index: 1;
+    margin-top: 5px;
+}
+
+.dropdown-content a {
+    padding: 12px 16px;
+    display: block;
+    color: black;
+    text-decoration: none;
+    border-bottom: 1px solid #eee;
+}
+
+.dropdown-content a:last-child {
+    border-bottom: none;
+}
+
+.dropdown-content a:hover {
+    background-color: #f5f5f5;
+}
+
+/* Main */
+.container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 24px;
+  background: white;
+  border-radius: 8px;
+}
+
+.container h1 {
+  margin-bottom: 20px;
+}
+
+.box {
+  background: #f9fafb;
+  border: 1px solid #d1d5db;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+/* Register */
+.center-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.register-form {
+  background: white;
+  padding: 32px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #d1d5db;
+  width: 300px;
+}
+
+.register-form label {
+  display: block;
+  margin: 10px 0 4px;
+  font-size: 14px;
+  color: #374151;
+}
+
+.register-form input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+}
+
+.register-form .form-footer {
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.register-form a {
+  font-size: 12px;
+  color: #6366f1;
+  text-decoration: none;
+}
+
+.register-form button {
+  background: #111827;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.register-form button:hover {
+  background: #1f2937;
+}
+
+.logo-center {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.logo-center img {
+  height: 40px;
+}
+
+/* Header + Add Button */
+.header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.btn-add {
+  background-color: #4f46e5;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-add:hover {
+  background-color: #4338ca;
+}
+
+/* Table */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 12px;
+  border: 1px solid #e5e7eb;
+  text-align: left;
+}
+
+.table th {
+  background-color: #f9fafb;
+}
+
+/* Button Styles */
+.btn-add,
+.btn-detail,
+.btn-edit,
+.btn-delete,
+.btn-back,
+.btn-hubungi,
+.form-actions button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.btn-add {
+  background-color: #4f46e5;
+  color: white;
+}
+
+.btn-add:hover {
+  background-color: #4338ca;
+  transform: translateY(-1px);
+}
+
+.btn-back {
+  background-color: grey;
+  color: white;
+}
+
+.btn-back:hover {
+  background-color: grey;
+  transform: translateY(-1px);
+}
+
+/* Table Action Buttons */
+.btn-detail {
+  background-color: green;
+  color: white;
+  margin-right: 8px;
+}
+
+.btn-detail:hover {
+  background-color: green;
+  transform: translateY(-1px);
+}
+
+.btn-edit {
+  background-color: #f59e0b;
+  color: white;
+  margin-right: 8px;
+}
+
+.btn-edit:hover {
+  background-color: #d97706;
+  transform: translateY(-1px);
+}
+
+.btn-delete {
+  background-color: #ef4444;
+  color: white;
+}
+
+.btn-delete:hover {
+  background-color: #dc2626;
+  transform: translateY(-1px);
+}
+
+.btn-hubungi {
+  background-color: plum;
+  color: white;
+}
+
+.btn-hubungi:hover {
+  background-color: plum;
+  transform: translateY(-1px);
+}
+
+/* Modal Container */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.3s ease-out;
+  overflow-y: auto;
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fff;
+  margin: 5% auto;
+  padding: 30px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  animation: slideDown 0.3s ease-out;
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Modal Header */
+.modal-content h2 {
+  margin: 0 0 25px 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Close Button */
+.close {
+  color: #9ca3af;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  line-height: 1;
+  padding: 5px;
+}
+
+.close:hover {
+  color: #6b7280;
+  transform: scale(1.1);
+}
+
+/* Form Styles */
+#formData {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#formData input,
+#formData textarea {
+  width: 95%;
+  padding: 10px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  background-color: #f9fafb;
+}
+
+#formData select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  background-color: #f9fafb;
+}
+
+#formData input,
+#formData textarea:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+  background-color: #fff;
+}
+
+#formData select:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+  background-color: #fff;
+}
+
+/* Form Actions */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.form-actions button {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.form-actions button[type="submit"] {
+  background-color: #6366f1;
+  color: white;
+}
+
+.form-actions button[type="submit"]:hover {
+  background-color: #4f46e5;
+  transform: translateY(-1px);
+}
+
+.form-actions button[type="button"] {
+  background-color: #f3f4f6;
+  color: #4b5563;
+}
+
+.form-actions button[type="button"]:hover {
+  background-color: #e5e7eb;
+  color: #374151;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+  .modal-content {
+    margin: 10% auto;
+    padding: 20px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .form-actions button {
+    width: 100%;
+  }
+}
+
+/* .modal {
+      display: none; 
+      position: fixed; 
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%; 
+      height: 100%; 
+      overflow: auto; 
+      background-color: rgba(0,0,0,0.5); 
+  }
+
+  .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 10px;
+      width: 400px;
+      position: relative;
+  }
+
+  .close {
+      color: #aaa;
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+  }
+
+  .close:hover,
+  .close:focus {
+      color: #000;
+      text-decoration: none;
+      cursor: pointer;
+  }
+
+  .form-actions {
+      margin-top: 10px;
+      display: flex;
+      gap: 10px;
+  }
+
+  .form-actions button {
+      flex: 1;
+  } */
