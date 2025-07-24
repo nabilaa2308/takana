@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jul 24, 2025 at 02:23 PM
+-- Generation Time: Jul 24, 2025 at 04:46 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.3.20
 
@@ -98,6 +98,7 @@ CREATE TABLE `transaksi` (
   `tanggal` timestamp NOT NULL,
   `nama_pembeli` varchar(255) NOT NULL,
   `nomor_hp` char(15) NOT NULL,
+  `alamat` varchar(255) NOT NULL,
   `total_bayar` decimal(12,2) DEFAULT '0.00',
   `status` enum('Proses','Pengantaran Pesanan','Selesai') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_as_cs NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -106,16 +107,17 @@ CREATE TABLE `transaksi` (
 -- Dumping data for table `transaksi`
 --
 
-INSERT INTO `transaksi` (`id`, `id_user`, `id_metode_pembayaran`, `kode_inv`, `tanggal`, `nama_pembeli`, `nomor_hp`, `total_bayar`, `status`) VALUES
-(2, NULL, 3, 'INV250724124124', '2025-07-23 17:00:00', 'budi', '082287205995', 0.00, 'Proses'),
-(3, NULL, 3, 'INV250724124235', '2025-07-23 17:00:00', 'budi', '082287205995', 0.00, 'Proses'),
-(4, NULL, 3, 'INV250724124235', '2025-07-23 17:00:00', 'budi', '082287205995', 24000.00, 'Pengantaran Pesanan'),
-(6, NULL, 1, 'INV25072410412830', '2025-07-23 17:00:00', 'kimi', '082287205995', 38980.00, 'Proses'),
-(7, NULL, 1, 'INV25072410412830', '2025-07-23 17:00:00', 'kimi', '082287205995', 38980.00, 'Proses'),
-(8, 1, 3, 'INV25072410463971', '2025-07-23 17:00:00', 'kimi anderson 2', '082287205995', 38980.00, 'Pengantaran Pesanan'),
-(434, NULL, 1, 'INV250724125733', '2025-07-23 17:00:00', 'dodo', '082287205995', 28980.00, 'Proses'),
-(435, NULL, 1, 'INV250724125733', '2025-07-23 17:00:00', 'dodo', '082287205995', 28980.00, 'Proses'),
-(436, 1, 1, 'INV250724125733', '2025-07-23 17:00:00', 'dodo', '082287205995', 28980.00, 'Pengantaran Pesanan');
+INSERT INTO `transaksi` (`id`, `id_user`, `id_metode_pembayaran`, `kode_inv`, `tanggal`, `nama_pembeli`, `nomor_hp`, `alamat`, `total_bayar`, `status`) VALUES
+(2, NULL, 3, 'INV250724124124', '2025-07-23 17:00:00', 'budi', '082287205995', '', 0.00, 'Proses'),
+(3, NULL, 3, 'INV250724124235', '2025-07-23 17:00:00', 'budi', '082287205995', '', 0.00, 'Proses'),
+(4, NULL, 3, 'INV250724124235', '2025-07-23 17:00:00', 'budi', '082287205995', '', 24000.00, 'Pengantaran Pesanan'),
+(6, NULL, 1, 'INV25072410412830', '2025-07-23 17:00:00', 'kimi', '082287205995', '', 38980.00, 'Proses'),
+(7, NULL, 1, 'INV25072410412830', '2025-07-23 17:00:00', 'kimi', '082287205995', '', 38980.00, 'Proses'),
+(8, 1, 3, 'INV25072410463971', '2025-07-23 17:00:00', 'kimi anderson 2', '082287205995', '', 38980.00, 'Pengantaran Pesanan'),
+(434, NULL, 1, 'INV250724125733', '2025-07-23 17:00:00', 'dodo', '082287205995', '', 28980.00, 'Proses'),
+(435, NULL, 1, 'INV250724125733', '2025-07-23 17:00:00', 'dodo', '082287205995', '', 28980.00, 'Proses'),
+(436, 1, 1, 'INV250724125733', '2025-07-23 17:00:00', 'dodo', '082287205995', '', 28980.00, 'Pengantaran Pesanan'),
+(437, 1, 3, 'INV250724154922', '2025-07-23 17:00:00', 'joko', '082287205995', 'RT. 01/RW. 02, Dusun Bukit Harapan, Sungai Petai, Kec. Kampar Kiri Hilir, KAB. KAMPAR', 16990.00, 'Pengantaran Pesanan');
 
 -- --------------------------------------------------------
 
@@ -581,7 +583,9 @@ INSERT INTO `transaksi_detail` (`id`, `id_transaksi`, `id_menu`, `jumlah`, `harg
 (443, 435, 3, 2, 11990.00, 23980.00),
 (444, 435, 4, 1, 5000.00, 5000.00),
 (445, 436, 3, 2, 11990.00, 23980.00),
-(446, 436, 4, 1, 5000.00, 5000.00);
+(446, 436, 4, 1, 5000.00, 5000.00),
+(447, 437, 3, 1, 11990.00, 11990.00),
+(448, 437, 4, 1, 5000.00, 5000.00);
 
 -- --------------------------------------------------------
 
@@ -672,13 +676,13 @@ ALTER TABLE `metode_pembayaran`
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=437;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=438;
 
 --
 -- AUTO_INCREMENT for table `transaksi_detail`
 --
 ALTER TABLE `transaksi_detail`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=447;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=449;
 
 --
 -- AUTO_INCREMENT for table `user`
